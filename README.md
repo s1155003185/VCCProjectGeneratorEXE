@@ -20,7 +20,7 @@ vccproj -U
 -U Update Mode
 
 #### Project Workspace
-##### Note <> means path. Support "path"
+##### Note <> means path. Support "path". If lib and int not stated, then it is a c++ application without dll.
 -wsp Workspace, Full Path or Path relative to current directory. Default Current Directory.
 -lib VCCModule c++ dll project directory. Path relative to wsp. If only dll project, no need to state. Mandatory if have UI project.
 -int UI project directory. Interface can be CPP, JAVA, SWITF (only CPP support at the moment). Path relative to wsp. Link lib to UI. If UI Project already exists, then just link but create. Mandatory if have UI project.
