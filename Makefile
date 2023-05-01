@@ -22,7 +22,7 @@
 # to add new gtest, follow unittest
 
 # Project Info
-PROJECT := Sample
+PROJECT := vccproj
 
 # Compiler Info
 # must have CXXFLAGS for default compile flags, .cpp.o only use CXXFLAGS
