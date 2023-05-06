@@ -20,7 +20,7 @@
                 "MIMode": "gdb",
                 "miDebuggerPath": "gdb.exe",
             },
-            "program": "${workspaceFolder}/bin/Debug/Sample",
+            "program": "${workspaceFolder}/bin/Debug/vccproj",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
