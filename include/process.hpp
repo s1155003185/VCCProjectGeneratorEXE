@@ -48,7 +48,8 @@ private:
     bool _IsSourceFullHistrory = false;
     bool _IsExcludeExternalUnitTest = false;
     bool _ForceUpdateVCCModel = false;
-    
+
+    std::wstring _assignPath(std::vector<std::wstring> &commands, size_t index);
     void _ParseCommand(std::vector<std::wstring> &commands);
 
 public:

@@ -16,6 +16,15 @@ std::string wstr2str(const std::wstring &wstr)
     std::string str(p.get());
     return str;
 }
+std::wstring Process::_assignPath(std::vector<std::wstring> &commands, size_t index)
+{
+    std::wstring currentArgument = commands[index];
+    if ((index + 1 > commands.size() - 1)
+        || std::equal(commands[index + 1].begin(), commands[index + 1].begin() + 1, L"-")) {
+        throw std::runtime_error("Invalid Path for  " + wstr2str(currentArgument));
+    }
+    return commands[index + 1];
+}
 
 void Process::_ParseCommand(std::vector<std::wstring> &commands)
 {
@@ -37,14 +46,14 @@ void Process::_ParseCommand(std::vector<std::wstring> &commands)
 
         // VCC Git Source
         if (arg == L"-s") {
-            this->_VccLocalSource = commands[i + 1];
+            this->_VccLocalSource = _assignPath(commands, i);
         } 
         
         // workspace
         else if (arg == L"-w") {
-            this->_Workspace = commands[i + 1];
+            this->_Workspace = _assignPath(commands, i);
         } else if (arg == L"-l") {
-            this->_DLLDirectory = commands[i + 1];
+            this->_DLLDirectory = _assignPath(commands, i);
         } else if (arg == L"-i=VCC") {
             this->_InterfaceType = InterfaceType::VCC;
         } else if (arg == L"-i=CPP") {
@@ -57,13 +66,13 @@ void Process::_ParseCommand(std::vector<std::wstring> &commands)
         
         // project
         else if (arg == L"-type") {
-            this->_ObjectTypeFilePath = commands[i + 1];
+            this->_ObjectTypeFilePath = _assignPath(commands, i);
         } else if (arg == L"-obj") {
-            this->_ObjectPropertyTypeDirectory = commands[i + 1];
+            this->_ObjectPropertyTypeDirectory = _assignPath(commands, i);
         } else if (arg == L"-act") {
-            this->_ActionTypeDirectory = commands[i + 1];
+            this->_ActionTypeDirectory = _assignPath(commands, i);
         } else if (arg == L"-err") {
-            this->_ErrorTypeDirectory = commands[i + 1];
+            this->_ErrorTypeDirectory = _assignPath(commands, i);
         }
         
         // option
@@ -75,6 +84,8 @@ void Process::_ParseCommand(std::vector<std::wstring> &commands)
             this->_IsExcludeExternalUnitTest = true;
         } else if (arg == L"-ForceUpdateVCCModel") {
             this->_ForceUpdateVCCModel = true;
+        } else if (std::equal(arg.begin(), arg.begin() + 1, L"-")) {
+           throw std::runtime_error("Unknown Argument " + wstr2str(arg));
         }
     }
 }
@@ -85,4 +96,6 @@ void Process::Execute(std::vector<std::wstring> &commands)
         return;
     this->_ParseCommand(commands);
     // Execute
+
+    std::wcout << L"Process Complete Successfully!" << std::endl;
 }
